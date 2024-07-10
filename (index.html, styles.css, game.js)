@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gun Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game">
+        <h1>Gun Game</h1>
+        <p id="output">Welcome to the Gun Game! Press start to play.</p>
+        <button id="startButton">Start</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#game {
+    margin-top: 50px;
+}
+
+button {// Initial game state
+let bullets = 6;
+let score = 0;
+
+// DOM elements
+const output = document.getElementById('output');
+const startButton = document.getElementById('startButton');
+
+// Event listeners
+startButton.addEventListener('click', startGame);
+
+// Functions
+function startGame() {
+    output.textContent = 'You have 6 bullets. Click to shoot!';
+    startButton.style.display = 'none'; // Hide start button after game starts
+
+    document.body.addEventListener('click', shoot);
+}
+
+function shoot() {
+    if (bullets > 0) {
+        bullets--;
+        score++;
+        output.textContent = `Bullets left: ${bullets}. Score: ${score}`;
+    } else {
+        endGame();
+    }
+}
+
+function endGame() {
+    output.textContent = `Game over! Your score: ${score}.`;
+    document.body.removeEventListener('click', shoot);
+    startButton.style.display = 'inline-block';
+    startButton.textContent = 'Restart';
+    bullets = 6;
+    score = 0;
+}
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
